@@ -19,6 +19,11 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
+
+            // 複合Unique制約
+            $table->unique(['email', 'deleted_at'], 'users_email_deleted_at_unique');
+            $table->unique(['name', 'deleted_at'], 'users_name_deleted_at_unique');
         });
     }
 
